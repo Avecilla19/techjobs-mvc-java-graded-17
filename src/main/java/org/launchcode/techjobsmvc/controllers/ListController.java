@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static org.launchcode.techjobsmvc.models.JobData.findAll;
+
 /**
  * Created by LaunchCode
  */
@@ -42,7 +44,6 @@ public class ListController {
         model.addAttribute("locations", JobData.getAllLocations());
         model.addAttribute("positions", JobData.getAllPositionTypes());
         model.addAttribute("skills", JobData.getAllCoreCompetency());
-
         return "list";
     }
 
@@ -50,7 +51,7 @@ public class ListController {
     public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam(required = false) String value) {
         ArrayList<Job> jobs;
         if (column.equals("all")){
-            jobs = JobData.findAll();
+            jobs = findAll();
             model.addAttribute("title", "All Jobs");
         } else {
             jobs = JobData.findByColumnAndValue(column, value);
